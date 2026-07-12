@@ -73,10 +73,6 @@ No provider's chat history — and no single tool's native `/resume` — transfe
 5. Switch providers. The new one reads `CURRENT.md`, runs `git status` to see any half-finished work, and keeps going. It reads the "do not retry" list and skips the dead ends.
 6. Repeat as limits reset.
 
-## Using it with GUI tools (Cursor, Copilot)
-
-The command-line tools (Claude Code, Codex, Gemini CLI) will read `AGENTS.md` and `CURRENT.md` on their own when a session starts. The chat-style GUI tools are more reactive. If you open Cursor or Copilot and just say "add a button", it will start writing code without reading any of this first. So with those, you're the orchestrator. Open the session with something like "read CURRENT.md and resume" and it picks up the thread. It's one extra sentence from you, and it's the difference between the harness working and getting quietly ignored.
-
 ## The development workflow
 
 The required spine is **spec → plan → execute (test-first) → verify → checkpoint**, and each phase has a first-class skill in `.agents/skills/` — no plugin required:
@@ -94,8 +90,11 @@ The required spine is **spec → plan → execute (test-first) → verify → ch
 
 `brainstorming` and `idea-review` are **optional** — reach for them when a design choice is genuinely open or an idea is risky, not as mandatory gates. Everything else is the always-on spine.
 
-## Windows and mixed teams
-A couple of environments quietly turn the symlinks into plain text files, which makes the tools stop finding their skills and agents. Downloading the repo as a ZIP from GitHub does it, and so does a Windows checkout without symlink support. Two things help. Clone with git rather than downloading a ZIP, and if a checkout still comes out flat, run `bash scripts/setup-harness.sh` to rebuild the links (`bash scripts/verify-harness.sh` will tell you if they're broken and point you at the fix). On a Windows or mixed team, make `CLAUDE.md` a one-line `@AGENTS.md` import instead of a symlink with `CLAUDE_IMPORT=1 bash scripts/setup-harness.sh`.
+## A few caveats
+
+**Symlinks, ZIP downloads, and Windows.** A couple of environments quietly turn the symlinks into plain text files, which makes the tools stop finding their skills and agents. Downloading the repo as a ZIP from GitHub does it, and so does a Windows checkout without symlink support. Two things help. Clone with git rather than downloading a ZIP, and if a checkout still comes out flat, run `bash scripts/setup-harness.sh` to rebuild the links (`bash scripts/verify-harness.sh` will tell you if they're broken and point you at the fix). On a Windows or mixed team, make `CLAUDE.md` a one-line `@AGENTS.md` import instead of a symlink with `CLAUDE_IMPORT=1 bash scripts/setup-harness.sh`.
+
+**GUI tools.** The command-line tools read `AGENTS.md` and `CURRENT.md` on their own at the start of a session. GUI tools like Cursor and Copilot load `AGENTS.md` through their pointer files (`.cursor/rules/00-harness.mdc` and `.github/copilot-instructions.md`), and in practice they follow `CURRENT.md` fine once it's loaded. Early in a session it's worth a quick check that the tool actually picked it up, and if it seems to be skipping it, nudge it with something like "read CURRENT.md and resume."
 
 ## Why standalone (no bundled framework)
 This template deliberately does **not** install a framework that ships its own parallel `AGENTS.md`/config, because a second config competes with this file for authority ("whichever the tool reads last" ambiguity) and breaks the single-source-of-truth guarantee that makes mid-task provider switching safe. The project-initiation flow (brief → PRD → spec) is inspired by that style of method but is implemented **natively** here — as plain skills and templates that obey `AGENTS.md` rather than replacing it. If you later adopt a workflow plugin, point it at these same `docs/` folders so no separate tool-branded folder appears.
