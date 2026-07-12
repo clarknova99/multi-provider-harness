@@ -1,0 +1,10 @@
+---
+description: Project harness entry point — always read AGENTS.md and the current execution state.
+alwaysApply: true
+---
+
+Read `AGENTS.md` at the repository root for all project conventions, invariants, and skill routing.
+
+Before starting any work, read `docs/state/CURRENT.md` first — it holds the active task and the exact next action. This project is worked across multiple AI providers switched mid-task; on-disk state in `docs/state/` is the only source of continuity between them.
+
+This `.mdc` file is a thin pointer. All real instruction lives in `AGENTS.md` and `.agents/`. Add more scoped `.mdc` rules here (with `globs:` frontmatter) only for genuinely Cursor-specific, path-scoped guidance.

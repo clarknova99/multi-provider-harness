@@ -1,0 +1,18 @@
+# Per-machine tool state (do NOT commit — these are local session caches, not the
+# canonical harness). The canonical state lives in docs/state/, which IS committed,
+# and in the committed provider adapters (.codex/config.toml, .codex/agents/*.toml).
+.claude/projects/
+.claude/todos/
+.claude/*.local.json
+.claude/worktrees/
+.gemini/tmp/
+# Codex: commit config.toml + agents/ (the adapters); ignore local session state only.
+.codex/sessions/
+.codex/log/
+.codex/*.log
+
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# Add your language/build ignores below (node_modules/, .build/, target/, dist/, etc.)

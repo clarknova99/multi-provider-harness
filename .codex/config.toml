@@ -1,0 +1,6 @@
+# Codex reads AGENTS.md at the repository root natively as its instruction file.
+# This file holds Codex-specific configuration only. Persona adapters live in
+# .codex/agents/*.toml and mirror the canonical .agents/agents/*.md files.
+
+[shell_environment_policy]
+inherit = "core"
