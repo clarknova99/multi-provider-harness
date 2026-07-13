@@ -98,3 +98,12 @@ The required spine is **spec → plan → execute (test-first) → verify → ch
 
 ## Why standalone (no bundled framework)
 This template deliberately does **not** install a framework that ships its own parallel `AGENTS.md`/config, because a second config competes with this file for authority ("whichever the tool reads last" ambiguity) and breaks the single-source-of-truth guarantee that makes mid-task provider switching safe. The project-initiation flow (brief → PRD → spec) is inspired by that style of method but is implemented **natively** here — as plain skills and templates that obey `AGENTS.md` rather than replacing it. If you later adopt a workflow plugin, point it at these same `docs/` folders so no separate tool-branded folder appears.
+
+## Contributing
+Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md) for the setup steps, the spec → plan → execute → verify → checkpoint workflow, and the repo conventions. All participation is governed by the [Code of Conduct](CODE_OF_CONDUCT.md).
+
+## Security
+Please don't file public issues for vulnerabilities. See [SECURITY.md](SECURITY.md) for how to report privately.
+
+## License
+Released under the [MIT License](LICENSE). © 2026 Michael Feldblyum.
